@@ -32,6 +32,7 @@ class TodayViewController: NSViewController, NCWidgetProviding {
         // Update service status
         self.getServiceStatus { (message: String?, error: NSError?) -> Void in
             if let newMessage = message {
+                // Save to defaults
                 NSUserDefaults.standardUserDefaults().setObject(message, forKey: "lastMessage")
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -63,8 +64,10 @@ class TodayViewController: NSViewController, NCWidgetProviding {
     // MARK: - NCWidgetProviding
 
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+        // Update service status
         self.getServiceStatus { (message: String?, error: NSError?) -> Void in
             if let newMessage = message {
+                // Save to defaults
                 NSUserDefaults.standardUserDefaults().setObject(message, forKey: "lastMessage")
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
